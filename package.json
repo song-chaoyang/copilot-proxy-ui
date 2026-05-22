@@ -1,0 +1,30 @@
+{
+  "name": "copilot-proxy-ui",
+  "version": "1.0.0",
+  "description": "Modern UI Dashboard for GitHub Copilot Proxy - Beautiful, feature-rich interface for managing your Copilot API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "npx serve -l 3000"
+  },
+  "keywords": [
+    "copilot",
+    "github",
+    "proxy",
+    "dashboard",
+    "openai-compatible",
+    "anthropic-compatible"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.0.0",
+    "sass": "^1.69.0"
+  }
+}

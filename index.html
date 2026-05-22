@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copilot Proxy Dashboard - Modern UI</title>
+  <link rel="stylesheet" href="/src/styles/main.scss">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">🚀</div>
+        <div class="logo-text">
+          <span class="title">Copilot Proxy</span>
+          <span class="subtitle">Dashboard</span>
+        </div>
+      </div>
+      
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <span class="icon">📊</span>
+          <span>仪表盘</span>
+        </a>
+        <a href="#" class="nav-item" data-page="chat">
+          <span class="icon">💬</span>
+          <span>AI 对话</span>
+        </a>
+        <a href="#" class="nav-item" data-page="models">
+          <span class="icon">🤖</span>
+          <span>模型管理</span>
+        </a>
+        <a href="#" class="nav-item" data-page="usage">
+          <span class="icon">📈</span>
+          <span>使用统计</span>
+        </a>
+        <a href="#" class="nav-item" data-page="settings">
+          <span class="icon">⚙️</span>
+          <span>设置</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="status-indicator online">
+          <span class="dot"></span>
+          <span>服务运行中</span>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1 id="page-title">仪表盘</h1>
+          <span class="header-subtitle">实时监控与配置</span>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-primary" id="start-proxy-btn">
+            <span>▶</span> 启动服务
+          </button>
+          <button class="btn btn-secondary" id="check-usage-btn">
+            <span>📋</span> 检查用量
+          </button>
+        </div>
+      </header>
+      
+      <!-- Dashboard Page -->
+      <div class="page-content" id="dashboard-page">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">🤖</div>
+            <div class="stat-info">
+              <span class="stat-value" id="model-count">--</span>
+              <span class="stat-label">可用模型</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">✅</div>
+            <div class="stat-info">
+              <span class="stat-value" id="auth-status">未认证</span>
+              <span class="stat-label">认证状态</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple">📡</div>
+            <div class="stat-info">
+              <span class="stat-value" id="port">4399</span>
+              <span class="stat-label">服务端口</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">⏱️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="uptime">--</span>
+              <span class="stat-label">运行时间</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cards-container">
+          <div class="card api-info">
+            <div class="card-header">
+              <h3>🔌 API 端点</h3>
+            </div>
+            <div class="card-body">
+              <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <code>/v1/chat/completions</code>
+                <button class="copy-btn" onclick="copyEndpoint('POST /v1/chat/completions')">📋</button>
+              </div>
+              <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <code>/v1/messages</code>
+                <button class="copy-btn" onclick="copyEndpoint('POST /v1/messages')">📋</button>
+              </div>
+              <div class="api-endpoint">
+                <span class="method get">GET</span>
+                <code>/v1/models</code>
+                <button class="copy-btn" onclick="copyEndpoint('GET /v1/models')">📋</button>
+              </div>
+              <div class="api-endpoint">
+                <span class="method post">POST</span>
+                <code>/v1/responses</code>
+                <button class="copy-btn" onclick="copyEndpoint('POST /v1/responses')">📋</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card quick-start">
+            <div class="card-header">
+              <h3>🚀 快速开始</h3>
+            </div>
+            <div class="card-body">
+              <div class="code-block">
+                <div class="code-label">OpenAI 兼容</div>
+                <pre><code>curl http://localhost:4399/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer dummy" \
+  -d '{"model":"gpt-4.1","messages":[{"role":"user","content":"Hello"}]}'</code></pre>
+              </div>
+              <div class="code-block">
+                <div class="code-label">Anthropic 兼容</div>
+                <pre><code>curl http://localhost:4399/v1/messages \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: dummy" \
+  -H "anthropic-version: 2023-06-01" \
+  -d '{"model":"claude-sonnet-4.6","max_tokens":1024,"messages":[{"role":"user","content":"Hello"}]}'</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chat Page -->
+      <div class="page-content hidden" id="chat-page">
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages">
+            <div class="message system">
+              <div class="message-content">
+                欢迎使用 Copilot Proxy AI 对话功能！💬<br>
+                请在左侧选择一个模型开始对话。
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-container">
+            <select id="chat-model" class="model-select">
+              <option value="">选择模型...</option>
+            </select>
+            <textarea id="chat-input" placeholder="输入消息..." rows="1"></textarea>
+            <button class="btn btn-primary" id="send-btn">发送</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Models Page -->
+      <div class="page-content hidden" id="models-page">
+        <div class="models-grid" id="models-list">
+          <div class="loading">加载中...</div>
+        </div>
+      </div>
+      
+      <!-- Usage Page -->
+      <div class="page-content hidden" id="usage-page">
+        <div class="usage-container">
+          <div class="card">
+            <div class="card-header">
+              <h3>📊 使用量统计</h3>
+            </div>
+            <div class="card-body" id="usage-content">
+              <div class="loading">加载中...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Settings Page -->
+      <div class="page-content hidden" id="settings-page">
+        <div class="settings-container">
+          <div class="card">
+            <div class="card-header">
+              <h3>⚙️ 服务配置</h3>
+            </div>
+            <div class="card-body">
+              <div class="setting-item">
+                <label>服务端口</label>
+                <input type="number" id="setting-port" value="4399" placeholder="4399">
+              </div>
+              <div class="setting-item">
+                <label>绑定地址</label>
+                <select id="setting-host">
+                  <option value="127.0.0.1">127.0.0.1 (本地)</option>
+                  <option value="0.0.0.0">0.0.0.0 (所有)</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>日志级别</label>
+                <select id="setting-log">
+                  <option value="">默认</option>
+                  <option value="verbose">详细</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" id="setting-manual"> 手动审批请求
+                </label>
+              </div>
+              <div class="setting-item">
+                <label>速率限制 (秒)</label>
+                <input type="number" id="setting-rate" value="0" placeholder="0 (无限制)">
+              </div>
+              <button class="btn btn-primary" onclick="saveSettings()">保存配置</button>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-header">
+              <h3>🔑 GitHub 授权</h3>
+            </div>
+            <div class="card-body">
+              <p id="auth-info">状态: <span class="status-text">未认证</span></p>
+              <div class="auth-code" id="device-code" style="display: none;">
+                <p>请访问以下链接并输入验证码:</p>
+                <div class="code-display" id="user-code">------</div>
+                <a href="#" id="auth-url" target="_blank">点击这里授权 →</a>
+              </div>
+              <button class="btn btn-secondary" id="auth-btn">开始授权</button>
+              <button class="btn btn-danger" id="logout-btn" style="display: none;">退出登录</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
