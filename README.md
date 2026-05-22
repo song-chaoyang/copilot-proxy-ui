@@ -6,6 +6,20 @@
 ![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-green.svg)
 ![Vue](https://img.shields.io/badge/vue-3.4-brightgreen.svg)
 
+## 📸 截图预览
+
+### 📊 仪表盘
+![仪表盘](screenshots/dashboard.png)
+
+### 💬 AI 对话
+![AI 对话](screenshots/chat.png)
+
+### 🤖 模型管理
+![模型管理](screenshots/models.png)
+
+### ⚙️ 设置
+![设置](screenshots/settings.png)
+
 ## ✨ 特性
 
 - 🎨 **现代化 UI** - 使用 Vue 3 + SCSS 构建的精美界面
@@ -18,9 +32,27 @@
 - 🌙 **深色主题** - 护眼的深色设计
 - 📱 **响应式** - 适配各种屏幕尺寸
 
-## 🖼️ 截图
+## 🖼️ 界面预览
 
-![Dashboard](screenshots/dashboard.png)
+```
+┌─────────────────────────────────────────────────────────────┐
+│  🚀 Copilot Proxy                                    │
+│  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━      │
+│  ┃ 📊 仪表盘    💬 AI 对话    🤖 模型    📈 统计   ⚙️ 设置 ┃
+│  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━      │
+│                                                             │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐              │
+│  │  12    │ │  ✅    │ │ 4399   │ │  2h    │              │
+│  │ 模型数  │ │ 已认证  │ │  端口   │ │ 运行时间│              │
+│  └────────┘ └────────┘ └────────┘ └────────┘              │
+│                                                             │
+│  ┌─ API 端点 ────────────────────┐ ┌─ 快速开始 ────────────┐ │
+│  │ POST /v1/chat/completions    │ │ curl http://...     │ │
+│  │ POST /v1/messages            │ │ ...                 │ │
+│  │ GET  /v1/models              │ │                     │ │
+│  └──────────────────────────────┘ └─────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## 🔧 技术栈
 
@@ -48,7 +80,7 @@ copilot-proxy start
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YOUR_USERNAME/copilot-proxy-ui.git
+git clone https://github.com/960208781/copilot-proxy-ui.git
 cd copilot-proxy-ui
 
 # 安装依赖
@@ -59,7 +91,6 @@ npm run dev
 
 # 生产构建
 npm run build
-npx serve dist
 ```
 
 ## 🚀 使用
@@ -123,7 +154,7 @@ npm run serve  # 预览生产构建
 
 ## 📧 联系
 
-如果你有任何问题，请 [开一个 Issue](https://github.com/YOUR_USERNAME/copilot-proxy-ui/issues)
+如果你有任何问题，请 [开一个 Issue](https://github.com/960208781/copilot-proxy-ui/issues)
 
 ---
 
